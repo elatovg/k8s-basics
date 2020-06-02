@@ -242,12 +242,7 @@ So let’s pick the first one:
 With the use of **iptables** k8s is able to forward the traffic to the node where the pod resides. Now let’s delete the service and the firewall:
 
 ```bash
-> gcloud compute firewall-rules delete demo-node-port
-The following firewalls will be deleted:
- - [demo-node-port]
-
-Do you want to continue (Y/n)?  Y
-
+> gcloud compute firewall-rules delete demo-node-port -q
 Deleted [https://www.googleapis.com/compute/v1/projects/demo/global/firewalls/demo-node-port].
 ```
 
@@ -281,6 +276,14 @@ Let’s delete the service after we are done:
 ```bash
 > k delete -f svc-lb.yaml
 service "nginx-service" deleted
+```
+
+Lastly delete the GKE cluster:
+
+```
+> gcloud container clusters delete demo --zone us-east4-c -q
+Deleting cluster demo...done.
+Deleted [https://container.googleapis.com/v1/projects/demo/zones/us-east4-c/clusters/demo].
 ```
 
 That’s it for now.
